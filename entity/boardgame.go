@@ -13,7 +13,7 @@ type Boardgame struct {
 	DeletedAt        gorm.DeletedAt `gorm:"index"`
 	Title            string
 	NumberOfPlayers  string
-	MinAge           string
+	MinAge           int
 	PlayTime         int
 	Category         string
 	RentalPrice      float64

@@ -6,6 +6,6 @@ type Member struct {
 	gorm.Model
 	UserID       uint
 	MemberTypeID uint
-	Credit       int
+	Credit       float64
 	Bills        []Bill `gorm:"foreignKey:MemberID"`
 }
