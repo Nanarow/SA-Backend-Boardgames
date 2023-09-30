@@ -6,10 +6,9 @@ type User struct {
 	gorm.Model
 	FirstName string
 	LastName  string
+	UserName  string
 	Email     string
 	Password  string
 	Tel       string
-	IDCard    string
-
-	Members []Member `gorm:"foreignKey:UserID"`
+	Members   []Member `gorm:"foreignKey:UserID"`
 }

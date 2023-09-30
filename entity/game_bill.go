@@ -2,13 +2,10 @@ package entity
 
 import (
 	"time"
-
-	"gorm.io/gorm"
 )
 
 type GameBill struct {
-	gorm.Model
-	Bill         Bill `gorm:"foreignKey:ID"`
+	Bill         Bill `gorm:"embedded"`
 	BoardgameID  uint
 	StartDate    time.Time
 	EndDate      time.Time

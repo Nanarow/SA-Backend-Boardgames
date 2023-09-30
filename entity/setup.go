@@ -19,7 +19,6 @@ func SetupDatabase() {
 	}
 	database.AutoMigrate(
 		&Boardgame{},
-		&Bill{},
 		&GameBill{},
 		&MemberBill{},
 		&MemberType{},

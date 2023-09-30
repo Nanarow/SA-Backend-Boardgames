@@ -3,11 +3,9 @@ package entity
 import "time"
 
 type RoomBill struct {
-	BillID *uint `gorm:"primaryKey"`
-
-	RoomID *uint
-	Room   Room `gorm:"foreignKey:RoomID"`
-
+	Bill      Bill `gorm:"embedded"`
+	RoomID    uint
 	StartTime time.Time
 	EndTime   time.Time
+	Hour      int
 }

@@ -15,7 +15,7 @@ type Boardgame struct {
 	NumberOfPlayers  string
 	MinAge           string
 	PlayTime         int
-	Genre            string
+	Category         string
 	RentalPrice      float64
 	QuantityInStock  int
 	QuantityInRental int
