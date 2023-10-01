@@ -7,5 +7,7 @@ type Member struct {
 	UserID       uint
 	MemberTypeID uint
 	Credit       float64
-	Bills        []Bill `gorm:"foreignKey:MemberID"`
+	GameBills    []GameBill   `gorm:"foreignKey:MemberID"`
+	RoomBills    []RoomBill   `gorm:"foreignKey:MemberID"`
+	MemberBill   []MemberBill `gorm:"foreignKey:MemberID"`
 }

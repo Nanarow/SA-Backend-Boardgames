@@ -1,6 +1,17 @@
 package entity
 
+import (
+	"time"
+
+	"gorm.io/gorm"
+)
+
 type MemberBill struct {
-	Bill         Bill `gorm:"embedded"`
+	gorm.Model
+	MemberID     uint
+	Status       string
+	Total        float64
+	Slip         string
+	PayDate      time.Time
 	MemberTypeID uint
 }

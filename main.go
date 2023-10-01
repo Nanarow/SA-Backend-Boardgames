@@ -42,4 +42,15 @@ func initRouter(route *gin.Engine) {
 
 	bill := route.Group("/boardgames/bills")
 	bill.GET("", controller.GetBoardgameBills)
+
+	roomGame := route.Group("/rooms")
+	roomGame.GET("", controller.GetRooms)
+	roomGame.GET("/:id", controller.GetRoomByID)
+	roomGame.GET("/types/:id", controller.GetRoomTypeByID)
+	roomGame.POST("", controller.CreateRoomBill)
+
+	member := route.Group("/members")
+	member.GET("", controller.GetMemberTypes)
+	member.POST("", controller.CreateMemberBill)
+	member.PATCH("", controller.UpdateBoardgame)
 }
