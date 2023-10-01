@@ -18,3 +18,26 @@ func CreateMemberBill(c *gin.Context) {
 	}
 
 }
+
+func GetMemberBill(c *gin.Context) {
+	var memberBills []entity.MemberBill
+	err := entity.DB().Find(&memberBills).Error
+	if !isError(err, c) {
+		c.JSON(http.StatusOK, gin.H{"data": memberBills})
+	}
+}
+
+func UpdateMemberBill(c *gin.Context) {
+	var newMemberBill entity.MemberBill
+	var oldMemberBill entity.MemberBill
+	bindErr := c.ShouldBindJSON(&newMemberBill)
+	if !isError(bindErr, c) {
+		err := entity.DB().Where("id = ?", newMemberBill.ID).First(&oldMemberBill).Error
+		if !isError(err, c) {
+			saveErr := entity.DB().Save(&newMemberBill).Error
+			if !isError(saveErr, c) {
+				c.JSON(http.StatusOK, gin.H{"data": newMemberBill})
+			}
+		}
+	}
+}

@@ -15,3 +15,14 @@ type MemberBill struct {
 	PayDate      time.Time
 	MemberTypeID uint
 }
+
+func (mb *MemberBill) AfterUpdate(tx *gorm.DB) (err error) {
+	var member Member
+	id := mb.MemberID
+	if mb.Status == "paid" {
+		tx.First(&member, id)
+		member.MemberTypeID = mb.MemberTypeID
+		tx.Save(&member)
+	}
+	return
+}

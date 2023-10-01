@@ -26,13 +26,13 @@ func CreateGameBills(c *gin.Context) {
 	}
 }
 
-//func GetBoardgames()
-
-func GetMemberByID(c *gin.Context) {
-	var member entity.Member
+func GetGameBillsByID(c *gin.Context) {
+	var gameBillID entity.GameBill
 	id := c.Param("id")
-	err := entity.DB().First(&member, id).Error
+	err := entity.DB().First(&gameBillID, id).Error
 	if !isError(err, c) {
-		c.JSON(http.StatusOK, gin.H{"data": member})
+		c.JSON(http.StatusOK, gin.H{"data": gameBillID})
 	}
 }
+
+//func GetBoardgames()

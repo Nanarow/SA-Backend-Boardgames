@@ -18,7 +18,7 @@ func GetRooms(c *gin.Context) {
 func GetRoomByID(c *gin.Context) {
 	var room entity.Room
 	id := c.Param("id")
-	err := entity.DB().First(&room, id).Error
+	err := entity.DB().Preload("RoomType").First(&room, id).Error
 	if !isError(err, c) {
 		c.JSON(http.StatusOK, gin.H{"data": room})
 	}

@@ -5,7 +5,9 @@ import "gorm.io/gorm"
 type Room struct {
 	gorm.Model
 	RoomTypeID uint
-	Name       string
-	State      string
-	RoomBills  []RoomBill `gorm:"foreignKey:RoomID"`
+	RoomType   RoomType `gorm:"foreignKey:ID"`
+
+	Name      string
+	State     string
+	RoomBills []RoomBill `gorm:"foreignKey:RoomID"`
 }
