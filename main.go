@@ -42,25 +42,26 @@ func initRouter(route *gin.Engine) {
 
 	gameBill := route.Group("/boardgames/bills")
 	gameBill.GET("", controller.GetBoardgameBills)
-	gameBill.POST("", controller.CreateGameBills)
 	gameBill.GET("/:id", controller.GetGameBillsByID)
+	gameBill.POST("", controller.CreateGameBills)
 
 	roomGame := route.Group("/rooms")
 	roomGame.GET("", controller.GetRooms)
 	roomGame.GET("/:id", controller.GetRoomByID)
-	roomGame.POST("", controller.CreateRoomBill)
+	roomGame.PATCH("", controller.UpdateRoom)
 
 	roomType := route.Group("/rooms/types")
 	roomType.GET("/:id", controller.GetRoomTypeByID)
 
 	roomBill := route.Group("/rooms/bill")
 	roomBill.GET("/:id", controller.GetRoomBillById)
+	roomBill.POST("", controller.CreateRoomBill)
 
 	member := route.Group("/members")
 	member.GET("", controller.GetMemberTypes)
 	member.GET("/:id", controller.GetMemberByID)
 	member.POST("", controller.CreateMemberBill)
-	member.PATCH("", controller.UpdateBoardgame)
+	member.PATCH("", controller.UpdateMember)
 
 	memberBill := route.Group("/members/bills")
 	memberBill.GET("", controller.GetMemberBill)

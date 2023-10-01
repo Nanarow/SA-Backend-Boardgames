@@ -23,3 +23,18 @@ func GetRoomByID(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{"data": room})
 	}
 }
+
+func UpdateRoom(c *gin.Context) {
+	var newRoom entity.Room
+	var oldRoom entity.Room
+	bindErr := c.ShouldBindJSON(&newRoom)
+	if !isError(bindErr, c) {
+		err := entity.DB().Where("id = ?", newRoom.ID).First(&oldRoom).Error
+		if !isError(err, c) {
+			saveErr := entity.DB().Save(&newRoom).Error
+			if !isError(saveErr, c) {
+				c.JSON(http.StatusOK, gin.H{"data": newRoom})
+			}
+		}
+	}
+}
