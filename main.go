@@ -58,7 +58,7 @@ func initRouter(route *gin.Engine) {
 	roomBill.POST("", controller.CreateRoomBill)
 
 	member := route.Group("/members")
-	member.GET("", controller.GetMemberTypes)
+	member.GET("/types", controller.GetMemberTypes)
 	member.GET("/:id", controller.GetMemberByID)
 	member.POST("", controller.CreateMemberBill)
 	member.PATCH("", controller.UpdateMember)

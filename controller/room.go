@@ -9,7 +9,7 @@ import (
 
 func GetRooms(c *gin.Context) {
 	var rooms []entity.Room
-	err := entity.DB().Find(&rooms).Error
+	err := entity.DB().Preload("RoomType").Find(&rooms).Error
 	if !isError(err, c) {
 		c.JSON(http.StatusOK, gin.H{"data": rooms})
 	}
