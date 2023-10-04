@@ -15,7 +15,7 @@ func GetRooms(c *gin.Context) {
 	}
 }
 
-func GetRoomByID(c *gin.Context) {
+func GetRoomById(c *gin.Context) {
 	var room entity.Room
 	id := c.Param("id")
 	err := entity.DB().Preload("RoomType").First(&room, id).Error

@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func GetMemberByID(c *gin.Context) {
+func GetMemberById(c *gin.Context) {
 	var member entity.Member
 	id := c.Param("id")
 	err := entity.DB().Preload("MemberType").First(&member, id).Error

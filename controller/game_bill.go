@@ -47,7 +47,7 @@ func CreateGameBills(c *gin.Context) {
 	}
 }
 
-func GetGameBillsByID(c *gin.Context) {
+func GetGameBillsById(c *gin.Context) {
 	var gameBillID entity.GameBill
 	id := c.Param("id")
 	err := entity.DB().First(&gameBillID, id).Error
