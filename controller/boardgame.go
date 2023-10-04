@@ -8,11 +8,6 @@ import (
 )
 
 // GET /boardgames
-type BoardGameQuery struct {
-	Filters []string `form:"filters"`
-	Limit   int      `form:"limit"`
-	Offset  int      `form:"offset"`
-}
 
 func GetBoardgames(c *gin.Context) {
 	var boardgames []entity.Boardgame
@@ -58,10 +53,10 @@ func CreateBoardgame(c *gin.Context) {
 
 func UpdateBoardgame(c *gin.Context) {
 	var newBoardgame entity.Boardgame
-	var boardgame entity.Boardgame
+	var result entity.Boardgame
 	bindErr := c.ShouldBindJSON(&newBoardgame)
 	if !isError(bindErr, c) {
-		err := entity.DB().Where("id = ?", newBoardgame.ID).First(&boardgame).Error
+		err := entity.DB().Where("id = ?", newBoardgame.ID).First(&result).Error
 		if !isError(err, c) {
 			saveErr := entity.DB().Save(&newBoardgame).Error
 			if !isError(saveErr, c) {

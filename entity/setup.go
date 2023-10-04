@@ -40,6 +40,8 @@ func initData(db *gorm.DB) {
 	initMembers(db)
 	initRoomTypes(db)
 	initRooms(db)
+	initRoomBill(db)
+	initMemberBill(db)
 
 }
 func initUsers(db *gorm.DB) {
@@ -147,7 +149,37 @@ func initMemberTypes(db *gorm.DB) {
 		}
 	}
 }
-
+func initMemberBill(db *gorm.DB) {
+	memberBills := []MemberBill{
+		{
+			Model:        gorm.Model{ID: 1},
+			MemberID:     1,
+			Status:       "paid",
+			Total:        0,
+			MemberTypeID: 1,
+		},
+		{
+			Model:        gorm.Model{ID: 2},
+			MemberID:     2,
+			Status:       "pending",
+			Total:        259,
+			MemberTypeID: 3,
+		},
+		{
+			Model:        gorm.Model{ID: 3},
+			MemberID:     3,
+			Status:       "pending",
+			Total:        0,
+			MemberTypeID: 4,
+		},
+	}
+	for _, memberBill := range memberBills {
+		err := db.Create(&memberBill).Error
+		if err != nil {
+			fmt.Println("Error: ", err.Error())
+		}
+	}
+}
 func initRooms(db *gorm.DB) {
 	rooms := []Room{
 		{
@@ -247,6 +279,38 @@ func initRoomTypes(db *gorm.DB) {
 			fmt.Println("Error: ", err.Error())
 		}
 	}
+}
+func initRoomBill(db *gorm.DB) {
+	roomsBill := []RoomBill{
+		{
+			MemberID: 1,
+			Status:   "paid",
+			Total:    100,
+			RoomID:   2,
+			Hour:     4,
+		},
+		{
+			MemberID: 2,
+			Status:   "pending",
+			Total:    50,
+			RoomID:   3,
+			Hour:     2,
+		},
+		{
+			MemberID: 3,
+			Status:   "paid",
+			Total:    200,
+			RoomID:   5,
+			Hour:     5,
+		},
+	}
+	for _, roomsBill := range roomsBill {
+		err := db.Create(&roomsBill).Error
+		if err != nil {
+			fmt.Println("Error: ", err.Error())
+		}
+	}
+
 }
 func initBoardgames(db *gorm.DB) {
 	boardgames := []Boardgame{

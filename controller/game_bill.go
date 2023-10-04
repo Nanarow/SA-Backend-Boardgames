@@ -9,9 +9,30 @@ import (
 
 func GetBoardgameBills(c *gin.Context) {
 	var gameBills []entity.GameBill
-	err := entity.DB().Preload("Bill").Find(&gameBills).Error
+	var query BillQuery
+	c.ShouldBindQuery(&query)
+	db := entity.DB()
+	if query.Status != "" {
+		db = db.Where("status = ?", query.Status)
+	}
+	err := db.Find(&gameBills).Error
 	if !isError(err, c) {
 		c.JSON(http.StatusOK, gin.H{"data": gameBills})
+	}
+}
+
+func UpdateGameBill(c *gin.Context) {
+	var newGameBill entity.GameBill
+	var result entity.GameBill
+	bindErr := c.ShouldBindJSON(&newGameBill)
+	if !isError(bindErr, c) {
+		err := entity.DB().Where("id = ?", newGameBill.ID).First(&result).Error
+		if !isError(err, c) {
+			saveErr := entity.DB().Save(&newGameBill).Error
+			if !isError(saveErr, c) {
+				c.JSON(http.StatusOK, gin.H{"data": newGameBill})
+			}
+		}
 	}
 }
 

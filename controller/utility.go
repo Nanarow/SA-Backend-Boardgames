@@ -14,6 +14,16 @@ import (
 // 	return true
 // }
 
+type BoardGameQuery struct {
+	Filters []string `form:"filters"`
+	Limit   int      `form:"limit"`
+	Offset  int      `form:"offset"`
+}
+
+type BillQuery struct {
+	Status string `form:"status"`
+}
+
 func isError(err error, c *gin.Context) bool {
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -21,3 +31,34 @@ func isError(err error, c *gin.Context) bool {
 	}
 	return false
 }
+
+// func getById(result interface{}, c *gin.Context) {
+// 	id := c.Param("id")
+// 	err := entity.DB().First(&result, id).Error
+// 	if !isError(err, c) {
+// 		c.JSON(http.StatusOK, gin.H{"data": result})
+// 	}
+// }
+
+// type Test struct {
+// 	ID uint
+// }
+
+// func update(result interface{}, c *gin.Context) {
+// 	var old Test
+// 	var data Test
+// 	bindErr := c.ShouldBindJSON(&result)
+// 	bindErr2 := c.ShouldBindJSON(&data)
+// 	if isError(bindErr2, c) {
+// 		return
+// 	}
+// 	if !isError(bindErr, c) {
+// 		err := entity.DB().Where("id = ?", data.ID).First(&old).Error
+// 		if !isError(err, c) {
+// 			saveErr := entity.DB().Save(&result).Error
+// 			if !isError(saveErr, c) {
+// 				c.JSON(http.StatusOK, gin.H{"data": result})
+// 			}
+// 		}
+// 	}
+// }

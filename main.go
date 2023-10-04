@@ -41,21 +41,23 @@ func initRouter(route *gin.Engine) {
 	boardgame.DELETE("/:id", controller.DeleteBoardgame)
 
 	gameBill := route.Group("/boardgames/bills")
-	gameBill.GET("", controller.GetBoardgameBills)
 	gameBill.GET("/:id", controller.GetGameBillsByID)
+	gameBill.GET("", controller.GetBoardgameBills)
 	gameBill.POST("", controller.CreateGameBills)
-
-	roomGame := route.Group("/rooms")
-	roomGame.GET("", controller.GetRooms)
-	roomGame.GET("/:id", controller.GetRoomByID)
-	roomGame.PATCH("", controller.UpdateRoom)
+	gameBill.PATCH("", controller.UpdateGameBill)
 
 	roomType := route.Group("/rooms/types")
 	roomType.GET("/:id", controller.GetRoomTypeByID)
 
-	roomBill := route.Group("/rooms/bill")
+	roomGame := route.Group("/rooms")
+	roomGame.GET("", controller.GetRooms)
+	roomGame.GET("/:id", controller.GetRoomByID)
+
+	roomBill := route.Group("/rooms/bills")
 	roomBill.GET("/:id", controller.GetRoomBillById)
+	roomBill.GET("", controller.GetRoomBills)
 	roomBill.POST("", controller.CreateRoomBill)
+	roomBill.PATCH("", controller.UpdateRoomBill)
 
 	member := route.Group("/members")
 	member.GET("/types", controller.GetMemberTypes)
@@ -64,7 +66,8 @@ func initRouter(route *gin.Engine) {
 	member.PATCH("", controller.UpdateMember)
 
 	memberBill := route.Group("/members/bills")
-	memberBill.GET("", controller.GetMemberBill)
+	memberBill.GET("/:id", controller.GetMemberBillById)
+	memberBill.GET("", controller.GetMemberBills)
 	memberBill.POST("", controller.CreateMemberBill)
 	memberBill.PATCH("", controller.UpdateMemberBill)
 
