@@ -31,7 +31,7 @@ func SetupDatabase() {
 		&User{},
 	)
 	db = database
-	initData(db)
+	// initData(db)
 }
 func initData(db *gorm.DB) {
 	initUsers(db)
@@ -156,21 +156,21 @@ func initMemberBill(db *gorm.DB) {
 			MemberID:     1,
 			Status:       "paid",
 			Total:        0,
-			MemberTypeID: 1,
+			MemberTypeID: 2,
 		},
 		{
 			Model:        gorm.Model{ID: 2},
 			MemberID:     2,
-			Status:       "pending",
+			Status:       "paid",
 			Total:        259,
 			MemberTypeID: 3,
 		},
 		{
 			Model:        gorm.Model{ID: 3},
 			MemberID:     3,
-			Status:       "pending",
+			Status:       "paid",
 			Total:        0,
-			MemberTypeID: 4,
+			MemberTypeID: 2,
 		},
 	}
 	for _, memberBill := range memberBills {
@@ -198,7 +198,7 @@ func initRooms(db *gorm.DB) {
 			Model:      gorm.Model{ID: 3},
 			RoomTypeID: 1,
 			Name:       "S03",
-			State:      "unavailable",
+			State:      "available",
 		},
 		{
 			Model:      gorm.Model{ID: 4},
@@ -216,13 +216,13 @@ func initRooms(db *gorm.DB) {
 			Model:      gorm.Model{ID: 6},
 			RoomTypeID: 2,
 			Name:       "M02",
-			State:      "unavailable",
+			State:      "available",
 		},
 		{
 			Model:      gorm.Model{ID: 7},
 			RoomTypeID: 2,
 			Name:       "M03",
-			State:      "unavailable",
+			State:      "available",
 		},
 		{
 			Model:      gorm.Model{ID: 8},
@@ -240,7 +240,7 @@ func initRooms(db *gorm.DB) {
 			Model:      gorm.Model{ID: 10},
 			RoomTypeID: 3,
 			Name:       "L02",
-			State:      "unavailable",
+			State:      "available",
 		},
 	}
 	for _, room := range rooms {
@@ -283,6 +283,7 @@ func initRoomTypes(db *gorm.DB) {
 func initRoomBill(db *gorm.DB) {
 	roomsBill := []RoomBill{
 		{
+			Model:    gorm.Model{ID: 1},
 			MemberID: 1,
 			Status:   "paid",
 			Total:    100,
@@ -290,6 +291,7 @@ func initRoomBill(db *gorm.DB) {
 			Hour:     4,
 		},
 		{
+			Model:    gorm.Model{ID: 2},
 			MemberID: 2,
 			Status:   "pending",
 			Total:    50,
@@ -297,6 +299,7 @@ func initRoomBill(db *gorm.DB) {
 			Hour:     2,
 		},
 		{
+			Model:    gorm.Model{ID: 3},
 			MemberID: 3,
 			Status:   "paid",
 			Total:    200,
