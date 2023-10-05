@@ -16,7 +16,7 @@ type MemberBill struct {
 	MemberTypeID uint
 }
 
-func (mb *MemberBill) AfterUpdate(tx *gorm.DB) (err error) {
+func (mb *MemberBill) AfterCreate(tx *gorm.DB) (err error) {
 	var member Member
 	id := mb.MemberID
 	if mb.Status == "paid" {

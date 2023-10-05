@@ -47,6 +47,20 @@ func CreateGameBills(c *gin.Context) {
 	}
 }
 
+// check limit from member type
+// var member entity.Member
+// entity.DB().Preload("MemberType").First(&member, gameBill.MemberID)
+// max := member.MemberType.MaxBoardgames
+// fmt.Println("Max: ", max)
+// var gameBills []entity.GameBill
+// entity.DB().Where("return_status = ?", "renting").Find(&gameBills, gameBill.MemberID)
+// fmt.Println("Bills : ", len(gameBills))
+// if len(gameBills) < max {
+// 	// create method
+// 	return
+// }
+// c.JSON(http.StatusBadRequest, gin.H{"error": "Max renting Boardgames"})
+
 func GetGameBillsById(c *gin.Context) {
 	var gameBillID entity.GameBill
 	id := c.Param("id")
