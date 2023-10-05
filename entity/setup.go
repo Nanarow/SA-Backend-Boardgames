@@ -32,7 +32,6 @@ func SetupDatabase() {
 	)
 	db = database
 	// initData(db)
-	initGameBill(db)
 }
 func initData(db *gorm.DB) {
 	initUsers(db)
@@ -116,32 +115,32 @@ func initMembers(db *gorm.DB) {
 func initMemberTypes(db *gorm.DB) {
 	memberTypes := []MemberType{
 		{
-			Model:         gorm.Model{ID: 1},
-			Name:          "bronze",
-			MaxRoom:       5,
-			MaxBoardgames: 1,
-			Price:         0,
+			Model:        gorm.Model{ID: 1},
+			Name:         "bronze",
+			MaxRoomHour:  5,
+			MaxBoardgame: 1,
+			Price:        0,
 		},
 		{
-			Model:         gorm.Model{ID: 2},
-			Name:          "sliver",
-			MaxRoom:       7,
-			MaxBoardgames: 3,
-			Price:         199,
+			Model:        gorm.Model{ID: 2},
+			Name:         "sliver",
+			MaxRoomHour:  7,
+			MaxBoardgame: 3,
+			Price:        199,
 		},
 		{
-			Model:         gorm.Model{ID: 3},
-			Name:          "gold",
-			MaxRoom:       12,
-			MaxBoardgames: 6,
-			Price:         259,
+			Model:        gorm.Model{ID: 3},
+			Name:         "gold",
+			MaxRoomHour:  12,
+			MaxBoardgame: 6,
+			Price:        259,
 		},
 		{
-			Model:         gorm.Model{ID: 4},
-			Name:          "admin",
-			MaxRoom:       100,
-			MaxBoardgames: 100,
-			Price:         0,
+			Model:        gorm.Model{ID: 4},
+			Name:         "admin",
+			MaxRoomHour:  100,
+			MaxBoardgame: 100,
+			Price:        0,
 		},
 	}
 	for _, memberType := range memberTypes {
