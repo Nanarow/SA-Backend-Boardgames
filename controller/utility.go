@@ -14,10 +14,10 @@ import (
 // 	return true
 // }
 
-type BoardGameQuery struct {
-	Filters []string `form:"filters"`
-	Limit   int      `form:"limit"`
-	Offset  int      `form:"offset"`
+type PageQuery struct {
+	Filters string `form:"filters"`
+	Limit   int    `form:"limit"`
+	Offset  int    `form:"offset"`
 }
 
 type BillQuery struct {

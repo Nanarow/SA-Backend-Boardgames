@@ -2,6 +2,7 @@ package controller
 
 import (
 	"net/http"
+	"strings"
 
 	"github.com/Nanarow/backend/entity"
 	"github.com/gin-gonic/gin"
@@ -11,14 +12,15 @@ import (
 
 func GetBoardgames(c *gin.Context) {
 	var boardgames []entity.Boardgame
-	var query BoardGameQuery
+	var query PageQuery
 	c.ShouldBindQuery(&query)
 	db := entity.DB()
-	for idx, val := range query.Filters {
+	list := strings.Split(query.Filters, ",")
+	for idx, val := range list {
 		if idx == 0 {
-			db = db.Where("title LIKE ?", "%"+val+"%")
+			db = db.Where("category LIKE ?", "%"+val+"%")
 		} else {
-			db = db.Or("title LIKE ?", "%"+val+"%")
+			db = db.Or("category LIKE ?", "%"+val+"%")
 		}
 	}
 	if query.Limit == 0 {

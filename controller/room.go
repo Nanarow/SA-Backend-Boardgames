@@ -12,7 +12,12 @@ import (
 func GetRoomById(c *gin.Context) {
 	var room entity.Room
 	id := c.Param("id")
-	err := entity.DB().Preload("RoomType").First(&room, id).Error
+	var query PageQuery
+	c.ShouldBindQuery(&query)
+	if query.Limit == 0 {
+		query.Limit = -1
+	}
+	err := entity.DB().Limit(query.Limit).Offset(query.Offset).Preload("RoomType").First(&room, id).Error
 	if !isError(err, c) {
 		c.JSON(http.StatusOK, gin.H{"data": room})
 	}

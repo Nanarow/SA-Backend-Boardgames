@@ -9,7 +9,7 @@ import (
 
 func GetMemberTypes(c *gin.Context) {
 	var memberTypes []entity.MemberType
-	err := entity.DB().Find(&memberTypes).Error
+	err := entity.DB().Not("name = ?", "admin").Find(&memberTypes).Error
 	if !isError(err, c) {
 		c.JSON(http.StatusOK, gin.H{"data": memberTypes})
 	}
