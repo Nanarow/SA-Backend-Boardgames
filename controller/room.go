@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"net/http"
 	"time"
 
@@ -19,7 +20,7 @@ func GetRoomById(c *gin.Context) {
 
 func GetRooms(c *gin.Context) {
 	var rooms []entity.Room
-	err := entity.DB().Find(&rooms).Error
+	err := entity.DB().Preload("RoomType").Find(&rooms).Error
 	if !isError(err, c) {
 		checkRoomFromBills(rooms)
 		err = entity.DB().Preload("RoomType").Find(&rooms).Error
@@ -33,18 +34,30 @@ func GetRooms(c *gin.Context) {
 func checkRoomFromBills(rooms []entity.Room) {
 	for _, room := range rooms {
 		if room.State == "unavailable" {
-			var count int64
-			db := entity.DB().Model(&entity.RoomBill{}).Where("room_id = ? AND status = ?", room.ID, "pending")
-			db.Count(&count)
-			if count != 0 {
-				var roomBill entity.RoomBill
-				db.First(&roomBill)
+			var roomBill entity.RoomBill
+			entity.DB().Where("room_id = ?", room.ID).First(&roomBill)
+			if roomBill.Status == "pending" {
+				// checkFromCreateTime
 				timeOut := time.Since(roomBill.CreatedAt).Minutes()
-				// fmt.Println("Room state: ", timeOut)
 				if timeOut > 5 {
+					fmt.Println("Pending time out : ", timeOut, " change state and delete bill")
+					// change state and delete bill
 					room.State = "available"
+					entity.DB().Save(&room)
+					entity.DB().Delete(&roomBill)
 				}
-				entity.DB().Save(&room)
+
+			} else if roomBill.Status == "paid" {
+				// checkFromStartTime
+				timeOut := time.Since(roomBill.StartTime).Hours()
+				if timeOut > float64(roomBill.Hour) {
+					fmt.Println("Paid time out : ", timeOut, " change state and delete bill")
+					// change state and delete bill
+					room.State = "available"
+					entity.DB().Save(&room)
+					entity.DB().Delete(&roomBill)
+				}
+
 			}
 		}
 	}
