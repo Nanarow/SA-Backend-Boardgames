@@ -12,23 +12,35 @@ import (
 func GetRoomById(c *gin.Context) {
 	var room entity.Room
 	id := c.Param("id")
-	var query PageQuery
-	c.ShouldBindQuery(&query)
-	if query.Limit == 0 {
-		query.Limit = -1
-	}
-	err := entity.DB().Limit(query.Limit).Offset(query.Offset).Preload("RoomType").First(&room, id).Error
+	err := entity.DB().Preload("RoomType").First(&room, id).Error
 	if !isError(err, c) {
 		c.JSON(http.StatusOK, gin.H{"data": room})
 	}
 }
 
+// func GetRoomLength(c *gin.Context) {
+// 	var count int64
+// 	err := entity.DB().Model(&entity.Room{}).Count(&count).Error
+// 	if !isError(err, c) {
+// 		c.JSON(http.StatusOK, gin.H{"data": count})
+// 	}
+// }
+
 func GetRooms(c *gin.Context) {
 	var rooms []entity.Room
-	err := entity.DB().Preload("RoomType").Find(&rooms).Error
+	var query RoomQuery
+	c.ShouldBindQuery(&query)
+	if query.Limit == 0 {
+		query.Limit = -1
+	}
+	db := entity.DB().Limit(query.Limit).Offset(query.Offset)
+	if query.Size != 0 {
+		db = db.Where("room_type_id = ?", query.Size)
+	}
+	err := db.Preload("RoomType").Find(&rooms).Error
 	if !isError(err, c) {
 		checkRoomFromBills(rooms)
-		err = entity.DB().Preload("RoomType").Find(&rooms).Error
+		err = db.Preload("RoomType").Find(&rooms).Error
 		if !isError(err, c) {
 			c.JSON(http.StatusOK, gin.H{"data": rooms})
 		}

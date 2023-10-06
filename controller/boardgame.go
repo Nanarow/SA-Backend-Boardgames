@@ -12,7 +12,7 @@ import (
 
 func GetBoardgames(c *gin.Context) {
 	var boardgames []entity.Boardgame
-	var query PageQuery
+	var query BoardgameQuery
 	c.ShouldBindQuery(&query)
 	db := entity.DB()
 	list := strings.Split(query.Filters, ",")
