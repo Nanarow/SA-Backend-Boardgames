@@ -30,6 +30,7 @@ type RoomQuery struct {
 
 type BillQuery struct {
 	Status string `form:"status"`
+	MID    string `form:"mid"`
 }
 
 func isError(err error, c *gin.Context) bool {

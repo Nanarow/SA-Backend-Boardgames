@@ -15,6 +15,9 @@ func GetBoardgameBills(c *gin.Context) {
 	if query.Status != "" {
 		db = db.Where("status = ?", query.Status)
 	}
+	if query.MID != "" {
+		db = db.Where("member_id = ?", query.MID)
+	}
 	err := db.Find(&gameBills).Error
 	if !isError(err, c) {
 		c.JSON(http.StatusOK, gin.H{"data": gameBills})
