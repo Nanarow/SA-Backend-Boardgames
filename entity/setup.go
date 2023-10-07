@@ -31,7 +31,7 @@ func SetupDatabase() {
 		&User{},
 	)
 	db = database
-	// initData(db)
+	initData(db)
 }
 func initData(db *gorm.DB) {
 	initUsers(db)
@@ -40,9 +40,10 @@ func initData(db *gorm.DB) {
 	initMembers(db)
 	initRoomTypes(db)
 	initRooms(db)
-	initRoomBill(db)
-	initMemberBill(db)
-	initGameBill(db)
+
+	// initMemberBill(db)
+	// initRoomBill(db)
+	// initGameBill(db)
 
 }
 func initUsers(db *gorm.DB) {
@@ -138,8 +139,8 @@ func initMemberTypes(db *gorm.DB) {
 		{
 			Model:        gorm.Model{ID: 4},
 			Name:         "admin",
-			MaxRoomHour:  100,
-			MaxBoardgame: 100,
+			MaxRoomHour:  999,
+			MaxBoardgame: 999,
 			Price:        0,
 		},
 	}
@@ -193,7 +194,7 @@ func initRooms(db *gorm.DB) {
 			Model:      gorm.Model{ID: 2},
 			RoomTypeID: 1,
 			Name:       "S02",
-			State:      "unavailable",
+			State:      "available",
 		},
 		{
 			Model:      gorm.Model{ID: 3},
@@ -211,7 +212,7 @@ func initRooms(db *gorm.DB) {
 			Model:      gorm.Model{ID: 5},
 			RoomTypeID: 2,
 			Name:       "M01",
-			State:      "unavailable",
+			State:      "available",
 		},
 		{
 			Model:      gorm.Model{ID: 6},
@@ -364,8 +365,8 @@ func initBoardgames(db *gorm.DB) {
 			PlayTime:         10,
 			Category:         "Animals Card Game Humor",
 			RentalPrice:      50,
-			QuantityInStock:  18,
-			QuantityInRental: 2,
+			QuantityInStock:  10,
+			QuantityInRental: 0,
 			Deposit:          200,
 			Src:              "https://www.gameology.com.au/cdn/shop/products/8_a5e882b8-5842-4c06-8dd5-51c10fedf074_590x.progressive.jpg?v=1624577317",
 			Tutorial:         "https://youtu.be/rcVpTb-iPoQ",
@@ -378,8 +379,8 @@ func initBoardgames(db *gorm.DB) {
 			PlayTime:         60,
 			Category:         "Animals Card Game City Building Fantasy",
 			RentalPrice:      125,
-			QuantityInStock:  3,
-			QuantityInRental: 2,
+			QuantityInStock:  10,
+			QuantityInRental: 0,
 			Deposit:          503,
 			Src:              "https://www.gameology.com.au/cdn/shop/products/5f59f_348x.progressive.jpg?v=1665814719",
 			Tutorial:         "https://youtu.be/c6NHtw-C-Ro",
@@ -392,7 +393,7 @@ func initBoardgames(db *gorm.DB) {
 			PlayTime:         30,
 			Category:         "Adventure Fantasy Fighting Horror Medieval Miniatures",
 			RentalPrice:      302,
-			QuantityInStock:  0,
+			QuantityInStock:  10,
 			QuantityInRental: 0,
 			Deposit:          1208,
 			Src:              "https://www.gameology.com.au/cdn/shop/files/913a7_348x.progressive.jpg?v=1695300522",
@@ -407,7 +408,7 @@ func initBoardgames(db *gorm.DB) {
 			Category:         "Animals Puzzle",
 			RentalPrice:      104,
 			QuantityInStock:  10,
-			QuantityInRental: 3,
+			QuantityInRental: 0,
 			Deposit:          417,
 			Src:              "https://www.gameology.com.au/cdn/shop/products/22a8d_348x.progressive.jpg?v=1654309086",
 			Tutorial:         "https://youtu.be/w-r_TekunQI",
@@ -421,7 +422,7 @@ func initBoardgames(db *gorm.DB) {
 			Category:         "Animals Card Game City Building Fantasy",
 			RentalPrice:      169,
 			QuantityInStock:  10,
-			QuantityInRental: 7,
+			QuantityInRental: 0,
 			Deposit:          676,
 			Src:              "https://www.gameology.com.au/cdn/shop/products/1_68de69f7-dcb3-4a7e-b4c4-b7178816643e_348x.progressive.jpg?v=1569177494",
 			Tutorial:         "https://youtu.be/1b9zQz7COxs",
@@ -435,7 +436,7 @@ func initBoardgames(db *gorm.DB) {
 			Category:         "Animals Fantasy Wargame",
 			RentalPrice:      135,
 			QuantityInStock:  10,
-			QuantityInRental: 10,
+			QuantityInRental: 0,
 			Deposit:          539,
 			Src:              "https://www.gameology.com.au/cdn/shop/products/2_6fb8f36d-8762-43bb-82e6-489f3d59d9ca_348x.progressive.JPG?v=1545198116",
 			Tutorial:         "https://youtu.be/G08TDwBbV7o",
@@ -448,7 +449,7 @@ func initBoardgames(db *gorm.DB) {
 			PlayTime:         45,
 			Category:         "Puzzle",
 			RentalPrice:      94,
-			QuantityInStock:  0,
+			QuantityInStock:  10,
 			QuantityInRental: 0,
 			Deposit:          377,
 			Src:              "https://www.gameology.com.au/cdn/shop/products/85f51_295x.progressive.jpg?v=1677913320",
@@ -463,7 +464,7 @@ func initBoardgames(db *gorm.DB) {
 			Category:         "Bluffing Card Game Deduction Humor Party Game",
 			RentalPrice:      127,
 			QuantityInStock:  10,
-			QuantityInRental: 8,
+			QuantityInRental: 0,
 			Deposit:          489,
 			Src:              "https://www.gameology.com.au/cdn/shop/products/1_18469626-e36b-499d-be31-1272d2a6fe13_348x.progressive.JPG?v=1638144053",
 			Tutorial:         "https://youtu.be/mbGXIDYdtas",
@@ -477,7 +478,7 @@ func initBoardgames(db *gorm.DB) {
 			Category:         "City Building Medieval",
 			RentalPrice:      88,
 			QuantityInStock:  10,
-			QuantityInRental: 2,
+			QuantityInRental: 0,
 			Deposit:          352,
 			Src:              "https://www.gameology.com.au/cdn/shop/files/Carcassonne3rdEdition_GameBox_348x.progressive.jpg?v=1683846522",
 			Tutorial:         "https://youtu.be/CFvJUb-Ia1A",
@@ -491,7 +492,7 @@ func initBoardgames(db *gorm.DB) {
 			Category:         "Abstract Strategy",
 			RentalPrice:      99,
 			QuantityInStock:  10,
-			QuantityInRental: 10,
+			QuantityInRental: 0,
 			Deposit:          395,
 			Src:              "https://www.gameology.com.au/cdn/shop/products/1_afe2c3ce-be60-44f3-9243-c5446389ba02_348x.progressive.jpg?v=1568357696",
 			Tutorial:         "https://youtu.be/NK73VT0oFZM",
@@ -505,7 +506,7 @@ func initBoardgames(db *gorm.DB) {
 			Category:         "Negotiation",
 			RentalPrice:      66, // 5%
 			QuantityInStock:  10,
-			QuantityInRental: 4,
+			QuantityInRental: 0,
 			Deposit:          266, //20%
 			Src:              "https://www.gameology.com.au/cdn/shop/products/C_CATAN_BASE_5-6EXT_SS_348x.progressive.png.jpg?v=1519900511",
 			Tutorial:         "https://youtu.be/IHETxD99c4Q",
@@ -519,7 +520,7 @@ func initBoardgames(db *gorm.DB) {
 			Category:         "Card Game City Building Economic",
 			RentalPrice:      66,
 			QuantityInStock:  10,
-			QuantityInRental: 1,
+			QuantityInRental: 0,
 			Deposit:          266,
 			Src:              "https://www.gameology.com.au/cdn/shop/products/J2-2_7WONDDUEL_SH_348x.progressive.jpg?v=1568357703",
 			Tutorial:         "https://youtu.be/SxQkMRUvCJ8",
@@ -533,7 +534,7 @@ func initBoardgames(db *gorm.DB) {
 			Category:         "Medieval Negotiation",
 			RentalPrice:      144,
 			QuantityInStock:  10,
-			QuantityInRental: 2,
+			QuantityInRental: 0,
 			Deposit:          575,
 			Src:              "https://www.gameology.com.au/cdn/shop/products/C_CATAN_CITIES_CORE_SH_348x.progressive.png.jpg?v=1519900562",
 			Tutorial:         "https://youtu.be/pPyUO4E77j8",
@@ -547,7 +548,7 @@ func initBoardgames(db *gorm.DB) {
 			Category:         "Bluffing Card Game Deduction Horror Party Game",
 			RentalPrice:      68,
 			QuantityInStock:  10,
-			QuantityInRental: 10,
+			QuantityInRental: 0,
 			Deposit:          273,
 			Src:              "https://www.gameology.com.au/cdn/shop/products/1_6bc8bcb4-bccd-49eb-953f-32600bd6d91a_348x.progressive.jpg?v=1528540891",
 			Tutorial:         "https://youtu.be/XsP6LvZQpLk",
@@ -560,7 +561,7 @@ func initBoardgames(db *gorm.DB) {
 			PlayTime:         60,
 			Category:         "Adventure Exploration Horror Miniatures",
 			RentalPrice:      140,
-			QuantityInStock:  6,
+			QuantityInStock:  10,
 			QuantityInRental: 0,
 			Deposit:          561,
 			Src:              "https://www.gameology.com.au/cdn/shop/products/1_48df8bef-4ef2-481a-91ca-80486127a29f_348x.progressive.JPG?v=1568357720",
@@ -575,7 +576,7 @@ func initBoardgames(db *gorm.DB) {
 			Category:         "Party Game",
 			RentalPrice:      99,
 			QuantityInStock:  10,
-			QuantityInRental: 5,
+			QuantityInRental: 0,
 			Deposit:          395,
 			Src:              "https://www.gameology.com.au/cdn/shop/products/1_34f20051-b47b-426a-82fa-1bd960d83a4d_348x.progressive.jpg?v=1580346791",
 			Tutorial:         "https://youtu.be/KuL_R60_320",
@@ -589,7 +590,7 @@ func initBoardgames(db *gorm.DB) {
 			Category:         "Card Game Fantasy Medieval Movies / TV / Radio theme Novel-based",
 			RentalPrice:      185,
 			QuantityInStock:  10,
-			QuantityInRental: 2,
+			QuantityInRental: 0,
 			Deposit:          741,
 			Src:              "https://www.gameology.com.au/cdn/shop/products/1_277e9c5b-dac3-4b63-aec0-9d346d44d061_348x.progressive.jpg?v=1569311228",
 			Tutorial:         "https://youtu.be/I1JoAR9icU0",
@@ -603,7 +604,7 @@ func initBoardgames(db *gorm.DB) {
 			Category:         "Deduction Horror Party Game",
 			RentalPrice:      120,
 			QuantityInStock:  10,
-			QuantityInRental: 3,
+			QuantityInRental: 0,
 			Deposit:          480,
 			Src:              "https://www.gameology.com.au/cdn/shop/products/1_1306dd56-042b-41cd-a6a4-9f5abd387b9a_348x.progressive.jpg?v=1540461975",
 			Tutorial:         "https://youtu.be/Bw2Xz9wp4KI",
@@ -617,7 +618,7 @@ func initBoardgames(db *gorm.DB) {
 			Category:         "Adventure Card Game Dice Fantasy",
 			RentalPrice:      43,
 			QuantityInStock:  10,
-			QuantityInRental: 4,
+			QuantityInRental: 0,
 			Deposit:          172,
 			Src:              "https://www.gameology.com.au/cdn/shop/products/1_09620b9a-f016-432e-b685-872f12fa29c7_348x.progressive.jpg?v=1528540633",
 			Tutorial:         "https://youtu.be/GIK81rKyi4I",
@@ -631,7 +632,7 @@ func initBoardgames(db *gorm.DB) {
 			Category:         "Animals",
 			RentalPrice:      135,
 			QuantityInStock:  10,
-			QuantityInRental: 2,
+			QuantityInRental: 0,
 			Deposit:          539,
 			Src:              "https://www.gameology.com.au/cdn/shop/files/0_bdf17a68-d3d5-4420-8c7b-d797e6e002bc_348x.progressive.jpg?v=1684904878",
 			Tutorial:         "https://youtu.be/K62uUalsJTU",
@@ -659,7 +660,7 @@ func initBoardgames(db *gorm.DB) {
 			Category:         "Bluffing Card Game",
 			RentalPrice:      52,
 			QuantityInStock:  10,
-			QuantityInRental: 1,
+			QuantityInRental: 0,
 			Deposit:          208,
 			Src:              "https://www.gameology.com.au/cdn/shop/products/1_7b4919dd-c232-4a0c-91e4-a0979a0d2093_348x.progressive.jpg?v=1543967377",
 			Tutorial:         "https://youtu.be/mmiXSOG1BtQ",
@@ -686,8 +687,8 @@ func initBoardgames(db *gorm.DB) {
 			PlayTime:         45,
 			Category:         "Card Game Fantasy Horror Humor Science Fiction",
 			RentalPrice:      117,
-			QuantityInStock:  1,
-			QuantityInRental: 1,
+			QuantityInStock:  10,
+			QuantityInRental: 0,
 			Deposit:          467,
 			Src:              "https://www.gameology.com.au/cdn/shop/files/1e678_348x.progressive.jpg?v=1695347714",
 			Tutorial:         "https://youtu.be/7rgWdXy0HOA?si=qd2uBPnJkgnmfU1O",

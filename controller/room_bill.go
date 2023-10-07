@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/Nanarow/backend/entity"
@@ -9,10 +10,34 @@ import (
 
 func CreateRoomBill(c *gin.Context) {
 	var roomBill entity.RoomBill
+	var member entity.Member
+	var room entity.Room
 	err := c.ShouldBindJSON(&roomBill)
 	if !isError(err, c) {
-		err2 := entity.DB().Create(&roomBill).Error
-		if !isError(err2, c) {
+		id := roomBill.MemberID
+		err = entity.DB().Preload("MemberType").Find(&member, id).Error
+		if isError(err, c) {
+			return
+		}
+		hour := member.MemberType.MaxRoomHour
+		if roomBill.Hour > hour {
+			msg := fmt.Sprintf("Your account can reserve room %d hour", hour)
+			c.JSON(http.StatusBadRequest, gin.H{"error": msg})
+			return
+		}
+		id = roomBill.RoomID
+		err = entity.DB().Find(&room, id).Error
+		if isError(err, c) {
+			return
+		}
+
+		room.State = "unavailable"
+		err = entity.DB().Save(&room).Error
+		if isError(err, c) {
+			return
+		}
+		err = entity.DB().Create(&roomBill).Error
+		if !isError(err, c) {
 			c.JSON(http.StatusOK, gin.H{"data": roomBill})
 		}
 	}

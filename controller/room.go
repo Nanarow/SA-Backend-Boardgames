@@ -56,7 +56,8 @@ func checkRoomFromBills(rooms []entity.Room) {
 			if roomBill.Status == "pending" {
 				// checkFromCreateTime
 				timeOut := time.Since(roomBill.CreatedAt).Minutes()
-				if timeOut > 5 {
+				fmt.Println("Pending time : ", timeOut)
+				if timeOut > 3 {
 					fmt.Println("Pending time out : ", timeOut, " change state and delete bill")
 					// change state and delete bill
 					room.State = "available"
@@ -67,6 +68,7 @@ func checkRoomFromBills(rooms []entity.Room) {
 			} else if roomBill.Status == "paid" {
 				// checkFromStartTime
 				timeOut := time.Since(roomBill.StartTime).Hours()
+				fmt.Println("Paid time : ", timeOut)
 				if timeOut > float64(roomBill.Hour) {
 					fmt.Println("Paid time out : ", timeOut, " change state and delete bill")
 					// change state and delete bill
