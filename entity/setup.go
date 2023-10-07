@@ -34,12 +34,12 @@ func SetupDatabase() {
 	initData(db)
 }
 func initData(db *gorm.DB) {
-	initUsers(db)
-	initBoardgames(db)
-	initMemberTypes(db)
-	initMembers(db)
-	initRoomTypes(db)
-	initRooms(db)
+	// initMembers(db)
+	// initUsers(db)
+	// initBoardgames(db)
+	// initMemberTypes(db)
+	// initRoomTypes(db)
+	// initRooms(db)
 
 	// initMemberBill(db)
 	// initRoomBill(db)
@@ -101,6 +101,12 @@ func initMembers(db *gorm.DB) {
 		{
 			Model:        gorm.Model{ID: 3},
 			UserID:       3,
+			MemberTypeID: 4,
+			Credit:       0,
+		},
+		{
+			Model:        gorm.Model{ID: 4},
+			UserID:       0,
 			MemberTypeID: 4,
 			Credit:       0,
 		},

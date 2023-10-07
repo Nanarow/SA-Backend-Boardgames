@@ -73,7 +73,8 @@ func DeleteBoardgame(c *gin.Context) {
 	id := c.Param("id")
 	err := entity.DB().Where("id = ?", id).First(&boardgame).Error
 	if !isError(err, c) {
-		entity.DB().Unscoped().Delete(&boardgame)
+		// entity.DB().Unscoped().Delete(&boardgame) // Delete permanently
+		entity.DB().Delete(&boardgame)
 		c.JSON(http.StatusOK, gin.H{"data": "success"})
 	}
 }
