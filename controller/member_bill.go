@@ -11,10 +11,25 @@ func CreateMemberBill(c *gin.Context) {
 	var memberBill entity.MemberBill
 	err := c.ShouldBindJSON(&memberBill)
 	if !isError(err, c) {
-		err2 := entity.DB().Create(&memberBill).Error
-		if !isError(err2, c) {
-			c.JSON(http.StatusOK, gin.H{"data": memberBill})
+		err = entity.DB().Create(&memberBill).Error
+		if !isError(err, c) {
+			var member entity.Member
+			id := memberBill.MemberID
+			if memberBill.Status == "paid" { // check
+				entity.DB().Where("id = ?", id).First(&member)
+				member.MemberTypeID = memberBill.MemberTypeID // change type
+				err = entity.DB().Save(&member).Error
+				if isError(err, c) {
+					return
+				}
+			}
+			err = entity.DB().Preload("MemberType").Where("id = ?", id).First(&member).Error // check
+			if isError(err, c) {
+				return
+			}
+			c.JSON(http.StatusOK, gin.H{"data": member})
 		}
+
 	}
 
 }

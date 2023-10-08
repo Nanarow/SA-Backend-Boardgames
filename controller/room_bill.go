@@ -52,6 +52,14 @@ func GetRoomBillById(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{"data": roomBill})
 	}
 }
+func GetRoomBillByRoomID(c *gin.Context) {
+	var roomBill entity.RoomBill
+	id := c.Param("id")
+	err := entity.DB().Where("room_id = ?", id).First(&roomBill).Error
+	if !isError(err, c) {
+		c.JSON(http.StatusOK, gin.H{"data": roomBill})
+	}
+}
 
 func GetRoomBills(c *gin.Context) {
 	var roomBills []entity.RoomBill

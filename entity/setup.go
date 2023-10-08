@@ -2,6 +2,7 @@ package entity
 
 import (
 	"fmt"
+	"math"
 
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
@@ -102,12 +103,12 @@ func initMembers(db *gorm.DB) {
 			Model:        gorm.Model{ID: 3},
 			UserID:       3,
 			MemberTypeID: 4,
-			Credit:       0,
+			Credit:       899,
 		},
 		{
 			Model:        gorm.Model{ID: 4},
 			UserID:       0,
-			MemberTypeID: 4,
+			MemberTypeID: 5,
 			Credit:       0,
 		},
 	}
@@ -138,15 +139,22 @@ func initMemberTypes(db *gorm.DB) {
 		{
 			Model:        gorm.Model{ID: 3},
 			Name:         "gold",
-			MaxRoomHour:  12,
+			MaxRoomHour:  9,
 			MaxBoardgame: 6,
 			Price:        259,
 		},
 		{
 			Model:        gorm.Model{ID: 4},
+			Name:         "platinum",
+			MaxRoomHour:  12,
+			MaxBoardgame: math.MaxInt32,
+			Price:        459,
+		},
+		{
+			Model:        gorm.Model{ID: 5},
 			Name:         "admin",
-			MaxRoomHour:  999,
-			MaxBoardgame: 999,
+			MaxRoomHour:  math.MaxInt32,
+			MaxBoardgame: math.MaxInt32,
 			Price:        0,
 		},
 	}

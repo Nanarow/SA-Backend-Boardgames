@@ -16,13 +16,13 @@ type MemberBill struct {
 	MemberTypeID uint
 }
 
-func (mb *MemberBill) AfterCreate(tx *gorm.DB) (err error) {
-	var member Member
-	id := mb.MemberID
-	if mb.Status == "paid" {
-		tx.First(&member, id)
-		member.MemberTypeID = mb.MemberTypeID
-		tx.Save(&member)
-	}
-	return
-}
+// func (mb *MemberBill) AfterCreate(tx *gorm.DB) (err error) {
+// 	var member Member
+// 	id := mb.MemberID
+// 	if mb.Status == "paid" {
+// 		tx.First(&member, id)
+// 		member.MemberTypeID = mb.MemberTypeID
+// 		tx.Save(&member)
+// 	}
+// 	return
+// }
