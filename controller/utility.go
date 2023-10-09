@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"golang.org/x/crypto/bcrypt"
 )
 
 //	func isAffected(rows int64, c *gin.Context) bool {
@@ -49,25 +50,12 @@ func isError(err error, c *gin.Context) bool {
 // 	}
 // }
 
-// type Test struct {
-// 	ID uint
-// }
+func HashPassword(password string) (string, error) {
+	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)
+	return string(bytes), err
+}
 
-// func update(result interface{}, c *gin.Context) {
-// 	var old Test
-// 	var data Test
-// 	bindErr := c.ShouldBindJSON(&result)
-// 	bindErr2 := c.ShouldBindJSON(&data)
-// 	if isError(bindErr2, c) {
-// 		return
-// 	}
-// 	if !isError(bindErr, c) {
-// 		err := entity.DB().Where("id = ?", data.ID).First(&old).Error
-// 		if !isError(err, c) {
-// 			saveErr := entity.DB().Save(&result).Error
-// 			if !isError(saveErr, c) {
-// 				c.JSON(http.StatusOK, gin.H{"data": result})
-// 			}
-// 		}
-// 	}
-// }
+func CheckPasswordHash(password, hash string) bool {
+	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
+	return err == nil
+}
