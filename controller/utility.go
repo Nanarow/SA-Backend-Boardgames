@@ -7,13 +7,14 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-//	func isAffected(rows int64, c *gin.Context) bool {
-//		if rows == 0 {
-//			c.JSON(http.StatusBadRequest, gin.H{"error": "record not found"})
-//			return false
-//		}
-//		return true
-//	}
+// func isAffected(rows int64, c *gin.Context) bool {
+// 	if rows != 0 {
+// 		c.JSON(http.StatusBadRequest, gin.H{"error": "record not found"})
+// 		return true
+// 	}
+// 	return false
+// }
+
 type BoardgameQuery struct {
 	Filters string `form:"filters"`
 	PageQuery

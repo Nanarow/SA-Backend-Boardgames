@@ -63,4 +63,7 @@ func initRouter(route *gin.Engine) {
 	route.POST("/members/bills", controller.CreateMemberBill)
 	route.PATCH("/members/bills", controller.UpdateMemberBill)
 
+	route.POST("/users/login", controller.Login)
+	route.POST("/users/register", controller.Register)
+
 }
