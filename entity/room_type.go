@@ -7,6 +7,7 @@ type RoomType struct {
 	Name     string
 	Capacity string
 	Price    float64
+	Image    string
 
 	Rooms []Room `gorm:"foreignKey:RoomTypeID"`
 }

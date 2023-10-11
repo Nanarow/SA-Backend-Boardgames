@@ -35,12 +35,12 @@ func SetupDatabase() {
 	initData(db)
 }
 func initData(db *gorm.DB) {
-	// initMembers(db)
-	// initUsers(db)
-	// initBoardgames(db)
-	// initMemberTypes(db)
-	// initRoomTypes(db)
-	// initRooms(db)
+	initMembers(db)
+	initUsers(db)
+	initBoardgames(db)
+	initMemberTypes(db)
+	initRoomTypes(db)
+	initRooms(db)
 
 	// initMemberBill(db)
 	// initRoomBill(db)
@@ -53,28 +53,10 @@ func initUsers(db *gorm.DB) {
 			Model:     gorm.Model{ID: 1},
 			FirstName: "ณัฐพงศ์",
 			LastName:  "ศิริวิชัย",
-			UserName:  "Nuttapong",
+			UserName:  "aom",
 			Email:     "Nuttapong@gmail.com",
-			Password:  "1234567",
+			Password:  "12345678",
 			Tel:       "0856472682",
-		},
-		{
-			Model:     gorm.Model{ID: 2},
-			FirstName: "กิตติยา",
-			LastName:  "บุญสวนสุข",
-			UserName:  "Kittiya",
-			Email:     "Kittiya@gmail.com",
-			Password:  "112233",
-			Tel:       "0975846137",
-		},
-		{
-			Model:     gorm.Model{ID: 3},
-			FirstName: "ธนาภรณ์",
-			LastName:  "หิริโกกุล",
-			UserName:  "Ducky",
-			Email:     "Ducky007@gmail.com",
-			Password:  "111111",
-			Tel:       "0910566421",
 		},
 	}
 	for _, user := range users {
@@ -88,25 +70,13 @@ func initUsers(db *gorm.DB) {
 func initMembers(db *gorm.DB) {
 	members := []Member{
 		{
-			Model:        gorm.Model{ID: 1},
+			Model:        gorm.Model{ID: 2},
 			UserID:       1,
 			MemberTypeID: 1,
-			Credit:       120,
+			Credit:       0,
 		},
 		{
-			Model:        gorm.Model{ID: 2},
-			UserID:       2,
-			MemberTypeID: 3,
-			Credit:       461,
-		},
-		{
-			Model:        gorm.Model{ID: 3},
-			UserID:       3,
-			MemberTypeID: 4,
-			Credit:       899,
-		},
-		{
-			Model:        gorm.Model{ID: 4},
+			Model:        gorm.Model{ID: 1},
 			UserID:       0,
 			MemberTypeID: 5,
 			Credit:       0,
@@ -275,18 +245,21 @@ func initRoomTypes(db *gorm.DB) {
 			Name:     "S",
 			Capacity: "4-5",
 			Price:    25,
+			Image:    "../../assets/roomS",
 		},
 		{
 			Model:    gorm.Model{ID: 2},
 			Name:     "M",
 			Capacity: "6-8",
 			Price:    40,
+			Image:    "../../assets/roomM",
 		},
 		{
 			Model:    gorm.Model{ID: 3},
 			Name:     "L",
 			Capacity: "9-14",
 			Price:    60,
+			Image:    "../../assets/roomL",
 		},
 	}
 	for _, roomsType := range roomsTypes {

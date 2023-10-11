@@ -33,9 +33,9 @@ func CORSMiddleware() gin.HandlerFunc {
 }
 
 func initRouter(route *gin.Engine) {
+	route.GET("/boardgames/:id", controller.FindBoardgame)
 	route.POST("/boardgames", controller.CreateBoardgame)
 	route.GET("/boardgames", controller.GetBoardgames)
-	route.GET("/boardgames/:id", controller.FindBoardgame)
 	route.PATCH("/boardgames", controller.UpdateBoardgame)
 	route.DELETE("/boardgames/:id", controller.DeleteBoardgame)
 
@@ -65,5 +65,4 @@ func initRouter(route *gin.Engine) {
 
 	route.POST("/users/login", controller.Login)
 	route.POST("/users/register", controller.Register)
-
 }

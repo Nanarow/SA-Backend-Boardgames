@@ -33,15 +33,6 @@ func GetBoardgames(c *gin.Context) {
 
 }
 
-func FindBoardgame(c *gin.Context) {
-	var boardgame entity.Boardgame
-	id := c.Param("id")
-	err := entity.DB().First(&boardgame, id).Error
-	if !isError(err, c) {
-		c.JSON(http.StatusOK, gin.H{"data": boardgame})
-	}
-}
-
 func CreateBoardgame(c *gin.Context) {
 	var boardgame entity.Boardgame
 	bindErr := c.ShouldBindJSON(&boardgame)
@@ -76,5 +67,14 @@ func DeleteBoardgame(c *gin.Context) {
 		// entity.DB().Unscoped().Delete(&boardgame) // Delete permanently
 		entity.DB().Delete(&boardgame)
 		c.JSON(http.StatusOK, gin.H{"data": "success"})
+	}
+}
+
+func FindBoardgame(c *gin.Context) {
+	var boardgame entity.Boardgame
+	id := c.Param("id")
+	err := entity.DB().First(&boardgame, id).Error
+	if !isError(err, c) {
+		c.JSON(http.StatusOK, gin.H{"data": boardgame})
 	}
 }
