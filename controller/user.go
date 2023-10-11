@@ -50,18 +50,21 @@ func Login(c *gin.Context) {
 	bindErr := c.ShouldBindJSON(&payload)
 	if !isError(bindErr, c) {
 		err := entity.DB().Where("user_name = ?", payload.UserName).First(&user).Error
-		if !isError(err, c) {
-			err := entity.DB().Where("user_name = ? AND password = ?", payload.UserName, payload.Password).First(&user).Error
-			if isError(err, c) {
-				return
-			}
-			var member entity.Member
-			err = entity.DB().Preload("MemberType").Where("user_id = ?", user.ID).First(&member).Error
-			if isError(err, c) {
-				return
-			}
-			c.JSON(http.StatusOK, gin.H{"data": member})
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "invalid username"})
+			return
 		}
+		err = entity.DB().Where("user_name = ? AND password = ?", payload.UserName, payload.Password).First(&user).Error
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "invalid password"})
+			return
+		}
+		var member entity.Member
+		err = entity.DB().Preload("MemberType").Where("user_id = ?", user.ID).First(&member).Error
+		if isError(err, c) {
+			return
+		}
+		c.JSON(http.StatusOK, gin.H{"data": member})
 
 	}
 }
