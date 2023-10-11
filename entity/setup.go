@@ -245,21 +245,21 @@ func initRoomTypes(db *gorm.DB) {
 			Name:     "S",
 			Capacity: "4-5",
 			Price:    25,
-			Image:    "../../assets/roomS",
+			Image:    "roomS",
 		},
 		{
 			Model:    gorm.Model{ID: 2},
 			Name:     "M",
 			Capacity: "6-8",
 			Price:    40,
-			Image:    "../../assets/roomM",
+			Image:    "roomM",
 		},
 		{
 			Model:    gorm.Model{ID: 3},
 			Name:     "L",
 			Capacity: "9-14",
 			Price:    60,
-			Image:    "../../assets/roomL",
+			Image:    "roomL",
 		},
 	}
 	for _, roomsType := range roomsTypes {
