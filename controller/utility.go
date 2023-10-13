@@ -16,7 +16,11 @@ import (
 // }
 
 type BoardgameQuery struct {
-	Filters string `form:"filters"`
+	Title string `form:"title"`
+	Age   int    `form:"age"`
+	Time  int    `form:"time"`
+	Min   int    `form:"min"`
+	Max   int    `form:"max"`
 	PageQuery
 }
 

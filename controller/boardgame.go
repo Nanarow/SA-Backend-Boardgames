@@ -2,7 +2,6 @@ package controller
 
 import (
 	"net/http"
-	"strings"
 
 	"github.com/Nanarow/backend/entity"
 	"github.com/gin-gonic/gin"
@@ -15,13 +14,17 @@ func GetBoardgames(c *gin.Context) {
 	var query BoardgameQuery
 	c.ShouldBindQuery(&query)
 	db := entity.DB()
-	list := strings.Split(query.Filters, ",")
-	for idx, val := range list {
-		if idx == 0 {
-			db = db.Where("category LIKE ?", "%"+val+"%")
-		} else {
-			db = db.Or("category LIKE ?", "%"+val+"%")
-		}
+	if query.Title != "" {
+		db = db.Where("title LIKE ?", "%"+query.Title+"%")
+	}
+	if query.Age != 0 {
+		db = db.Where("min_age >= ?", query.Age)
+	}
+	if query.Time != 0 {
+		db = db.Where("play_time >= ?", query.Time)
+	}
+	if query.Max != 0 || query.Min != 0 {
+		db = db.Where("rental_price BETWEEN ? AND ?", query.Min, query.Max)
 	}
 	if query.Limit == 0 {
 		query.Limit = -1
