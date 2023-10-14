@@ -73,6 +73,11 @@ func GetRoomBills(c *gin.Context) {
 		db = db.Where("member_id = ?", query.MID)
 	}
 	err := db.Find(&roomBills).Error
+	// for _, bill := range roomBills {
+	// 	var room entity.Room
+	// 	db.Where("id = ?", bill.RoomID).Find(&room)
+	// 	checkTimeAndDelete(room)
+	// }
 	if !isError(err, c) {
 		c.JSON(http.StatusOK, gin.H{"data": roomBills})
 	}

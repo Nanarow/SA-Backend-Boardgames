@@ -33,13 +33,12 @@ func GetMemberById(c *gin.Context) {
 					entity.DB().Save(&member)
 				}
 			}
-			err = entity.DB().Preload("MemberType").First(&member, id).Error
-			if isError(err, c) {
-				return
-			}
-			c.JSON(http.StatusOK, gin.H{"data": member})
-
 		}
+		err = entity.DB().Preload("MemberType").First(&member, id).Error
+		if isError(err, c) {
+			return
+		}
+		c.JSON(http.StatusOK, gin.H{"data": member})
 	}
 
 }

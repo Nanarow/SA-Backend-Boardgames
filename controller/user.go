@@ -68,3 +68,12 @@ func Login(c *gin.Context) {
 
 	}
 }
+
+func GetUserByID(c *gin.Context) {
+	var user entity.User
+	id := c.Param("id")
+	err := entity.DB().First(&user, id).Error
+	if !isError(err, c) {
+		c.JSON(http.StatusOK, gin.H{"data": user})
+	}
+}

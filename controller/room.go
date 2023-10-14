@@ -51,33 +51,36 @@ func GetRooms(c *gin.Context) {
 func checkRoomFromBills(rooms []entity.Room) {
 	for _, room := range rooms {
 		if room.State == "unavailable" {
-			var roomBill entity.RoomBill
-			entity.DB().Where("room_id = ?", room.ID).First(&roomBill)
-			if roomBill.Status == "pending" {
-				// checkFromCreateTime
-				timeOut := time.Since(roomBill.CreatedAt).Minutes()
-				fmt.Println("Pending time : ", timeOut)
-				if timeOut > 3 {
-					fmt.Println("Pending time out : ", timeOut, " change state and delete bill")
-					// change state and delete bill
-					room.State = "available"
-					entity.DB().Save(&room)
-					entity.DB().Delete(&roomBill)
-				}
+			checkTimeAndDelete(room)
+		}
+	}
+}
 
-			} else if roomBill.Status == "paid" {
-				// checkFromStartTime
-				timeOut := time.Since(roomBill.StartTime).Hours()
-				fmt.Println("Paid time : ", timeOut)
-				if timeOut > float64(roomBill.Hour) {
-					fmt.Println("Paid time out : ", timeOut, " change state and delete bill")
-					// change state and delete bill
-					room.State = "available"
-					entity.DB().Save(&room)
-					entity.DB().Delete(&roomBill)
-				}
+func checkTimeAndDelete(room entity.Room) {
+	var roomBill entity.RoomBill
+	entity.DB().Where("room_id = ?", room.ID).First(&roomBill)
+	if roomBill.Status == "pending" {
+		// checkFromCreateTime
+		timeOut := time.Since(roomBill.CreatedAt).Minutes()
+		fmt.Println("Pending time : ", timeOut) // 1 minutes
+		if timeOut > 1 {
+			fmt.Println("Pending time out : ", timeOut, " change state and delete bill")
+			// change state and delete bill
+			room.State = "available"
+			entity.DB().Save(&room)
+			entity.DB().Delete(&roomBill)
+		}
 
-			}
+	} else if roomBill.Status == "paid" {
+		// checkFromStartTime
+		timeOut := time.Since(roomBill.StartTime).Hours()
+		fmt.Println("Paid time : ", timeOut)
+		if timeOut > float64(roomBill.Hour) {
+			fmt.Println("Paid time out : ", timeOut, " change state and delete bill")
+			// change state and delete bill
+			room.State = "available"
+			entity.DB().Save(&room)
+			entity.DB().Delete(&roomBill)
 		}
 	}
 }
