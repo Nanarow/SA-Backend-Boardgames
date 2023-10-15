@@ -8,7 +8,7 @@ type Boardgame struct {
 	gorm.Model
 	Title            string
 	NumberOfPlayers  string
-	MinAge           int
+	MinimumAge       int
 	PlayTime         int
 	Category         string
 	RentalPrice      float64
@@ -16,7 +16,7 @@ type Boardgame struct {
 	QuantityInRental int
 	Deposit          float64
 	Tutorial         string
-	Src              string
+	Source           string
 
 	GameBills []GameBill `gorm:"foreignKey:BoardgameID"`
 }

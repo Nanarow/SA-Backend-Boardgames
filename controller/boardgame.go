@@ -18,7 +18,7 @@ func GetBoardgames(c *gin.Context) {
 		db = db.Where("title LIKE ?", "%"+query.Title+"%")
 	}
 	if query.Age != 0 {
-		db = db.Where("min_age >= ?", query.Age)
+		db = db.Where("minimum_age >= ?", query.Age)
 	}
 	if query.Time != 0 {
 		db = db.Where("play_time >= ?", query.Time)
