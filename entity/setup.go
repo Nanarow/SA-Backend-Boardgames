@@ -80,7 +80,7 @@ func initMembers(db *gorm.DB) {
 	members := []Member{
 		{
 			Model:        gorm.Model{ID: 2},
-			UserID:       1,
+			UserID:       2,
 			MemberTypeID: 1,
 			Credit:       0,
 		},
